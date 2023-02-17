@@ -11,4 +11,3 @@ The python libraries you need is<br>
  sys<br>
  webbrowser<br>
  wikipedia<br>
- time<br>
