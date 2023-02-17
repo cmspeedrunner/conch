@@ -38,6 +38,9 @@ def help():
     print(colorama.Fore.GREEN+"conch search"+colorama.Fore.WHITE+"- This is how you can search a web browser for a question or any query you have, just enter your query after \"conch search\"")
     print(colorama.Fore.GREEN+"conch task"+colorama.Fore.WHITE+"- This is how you can open up a task manager window through conch")
     print(colorama.Fore.GREEN+"conch ls"+colorama.Fore.WHITE+"- This is how you can list the contents in the current directory")
+    print(colorama.Fore.GREEN+"conch net"+colorama.Fore.WHITE+"- This will display all network details about the networks and ips on your computer.")
+    print(colorama.Fore.GREEN+"conch profile"+colorama.Fore.WHITE+"- This will display all wifi's you have ever been connected to.")
+    print(colorama.Fore.GREEN+"conch copy"+colorama.Fore.WHITE+"- This will copy everything from one file to another, for example: \"conch copy from_folder to_folder\"")
 
 greeting()
 Loop = True
@@ -48,9 +51,6 @@ while Loop == True:
         os.system(mainline)
 
     if mainline == "conch":
-        greeting()
-
-    if mainline == "conch ":
         greeting()
 
     if mainline == "conch help":
@@ -67,6 +67,9 @@ while Loop == True:
         with open(path) as f:
             contents = f.read()
         print(contents)
+    if "conch net" in mainline:
+        os.system("netstat -an")
+        os.system("ipconfig /all")
     if "conch url" in mainline:
         path = mainline.split("conch url")[1]
         path = path.strip()
@@ -75,10 +78,15 @@ while Loop == True:
         path = mainline.split("conch search")[1]
         path = path.strip()
         webbrowser.open(path)
+    if "conch copy" in mainline:
+        from2 = mainline.split()
+        from2 = from2[2]
+        to2 = from2[3]
+        os.system("xcopy "+"\""+from2+"\"" + " \""+to2+"\""+" /e /i /h /y")
     if "conch task" in mainline:
-        os.system("taskmgr")
-        
-        os.system("python conch.py")
+        os.system("tasklist")
+    if "conch profile" in mainline:
+        os.system("netsh wlan show profile key")
     if "conch wiki" in mainline:
         path = mainline.split("conch wiki")[1]
         path = path.strip()
@@ -92,4 +100,3 @@ while Loop == True:
         goodbye()
         Loop = False
         quit()
-        exit()
