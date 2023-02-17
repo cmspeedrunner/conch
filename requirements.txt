@@ -1,0 +1,5 @@
+os
+colorama
+sys
+webbrowser
+wikipedia
