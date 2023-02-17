@@ -3,7 +3,6 @@ import colorama
 import sys
 import webbrowser
 import wikipedia
-import time
 
 def greeting():
     print(colorama.Fore.BLUE+"Welcome to Conch, type in \"conch help\" for information."+colorama.Fore.WHITE)
@@ -24,7 +23,8 @@ def version():
 CONCH                 
 VERSION: ALPHA V/0.5
 LICENSE: OPEN SOURCE
-DEV: CmSpeedrunner                         """+colorama.Fore.WHITE)
+DEV: CmSpeedrunner
+GITHUB: https://github.com/cmspeedrunner/conch              """+colorama.Fore.WHITE)
 
 def help():
     print(colorama.Fore.BLUE+"CONCH COMMANDS:"+colorama.Fore.WHITE)
