@@ -3,13 +3,119 @@ import colorama
 import sys
 import webbrowser
 import wikipedia
+import random
+
+def tictac():
+    theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
+            '4': ' ' , '5': ' ' , '6': ' ' ,
+            '1': ' ' , '2': ' ' , '3': ' ' }
+
+    board_keys = []
+
+    for key in theBoard:
+        board_keys.append(key)
+
+
+
+    def printBoard(board):
+        print(board['7'] + '|' + board['8'] + '|' + board['9'])
+        print('-+-+-')
+        print(board['4'] + '|' + board['5'] + '|' + board['6'])
+        print('-+-+-')
+        print(board['1'] + '|' + board['2'] + '|' + board['3'])
+
+# Now we'll write the main function which has all the gameplay functionality.
+    def game():
+
+        turn = colorama.Fore.MAGENTA+'X'+colorama.Fore.RESET
+        count = 0
+
+
+        for i in range(25):
+            printBoard(theBoard)
+            print("It's your turn," + turn + ". Move to which place? (1-9)")
+
+            move = input()        
+
+            if theBoard[move] == ' ':
+                theBoard[move] = turn
+                count += 1
+            else:
+                print("That place is already filled.\nMove to which place?")
+                continue
+
+        # Now we will check if player X or O has won,for every move after 5 moves. 
+            if count >= 5:
+                if theBoard['7'] == theBoard['8'] == theBoard['9'] != ' ': # across the top
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")                
+                    break
+                elif theBoard['4'] == theBoard['5'] == theBoard['6'] != ' ': # across the middle
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif theBoard['1'] == theBoard['2'] == theBoard['3'] != ' ': # across the bottom
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif theBoard['1'] == theBoard['4'] == theBoard['7'] != ' ': # down the left side
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif theBoard['2'] == theBoard['5'] == theBoard['8'] != ' ': # down the middle
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif theBoard['3'] == theBoard['6'] == theBoard['9'] != ' ': # down the right side
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break 
+                elif theBoard['7'] == theBoard['5'] == theBoard['3'] != ' ': # diagonal
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif theBoard['1'] == theBoard['5'] == theBoard['9'] != ' ': # diagonal
+                    printBoard(theBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break 
+
+        # If neither X nor O wins and the board is full, we'll declare the result as 'tie'.
+            if count == 9:
+                print("\nGame Over.\n")                
+                print("It's a Tie!!")
+
+        # Now we have to change the player after every move.
+            if turn == colorama.Fore.MAGENTA+'X'+colorama.Fore.RESET:
+                turn = colorama.Fore.BLUE+'O'+colorama.Fore.RESET
+            else:
+                turn = colorama.Fore.MAGENTA+'X'+colorama.Fore.RESET      
+    
+    # Now we will ask if player wants to restart the game or not.
+        restart = input("Do want to play Again?(y/n)")
+        if restart == "y" or restart == "Y":  
+            for key in board_keys:
+                theBoard[key] = " "
+
+            game()
+
+    if __name__ == "__main__":
+        game()
 
 def greeting():
     print(colorama.Fore.BLUE+"Welcome to Conch, type in \"conch help\" for information."+colorama.Fore.WHITE)
 
 def goodbye():
-    print(colorama.Fore.BLUE+"Thank "+colorama.Fore.MAGENTA+"you"+colorama.Fore.GREEN+" for"+colorama.Fore.RED+" using "+colorama.Fore.YELLOW+"C"+colorama.Fore.CYAN+"o"+colorama.Fore.GREEN+"n"+colorama.Fore.MAGENTA+"c"+colorama.Fore.BLUE+"h"+colorama.Fore.RESET+"!")
-
+    text = "Thank you for using Conch!"
+    colored_text = [getattr(colorama.Fore, f"{random.choice(list(colorama.Fore.__dict__.keys())[1:])}") + char + colorama.Fore.RESET for char in text]
+    print(''.join(colored_text))
 def version():
     print(colorama.Fore.BLUE+"""
        /\\
@@ -36,16 +142,17 @@ def help():
     print(colorama.Fore.GREEN+"conch url"+colorama.Fore.WHITE+"- This is how you can open a website url through conch, just enter the URL after \"conch url\"")
     print(colorama.Fore.GREEN+"conch wiki"+colorama.Fore.WHITE+"- This is how you can get a wikipedia page through conch, just enter the topic after \"conch wiki\"")
     print(colorama.Fore.GREEN+"conch search"+colorama.Fore.WHITE+"- This is how you can search a web browser for a question or any query you have, just enter your query after \"conch search\"")
-    print(colorama.Fore.GREEN+"conch task"+colorama.Fore.WHITE+"- This is how you can open up a task manager window through conch")
+    print(colorama.Fore.GREEN+"conch task"+colorama.Fore.WHITE+"- This is how you can print out quickly the tasks you are running through conch")
     print(colorama.Fore.GREEN+"conch ls"+colorama.Fore.WHITE+"- This is how you can list the contents in the current directory")
     print(colorama.Fore.GREEN+"conch net"+colorama.Fore.WHITE+"- This will display all network details about the networks and ips on your computer.")
     print(colorama.Fore.GREEN+"conch profile"+colorama.Fore.WHITE+"- This will display your computer profile")
     print(colorama.Fore.GREEN+"conch copy"+colorama.Fore.WHITE+"- This will copy everything from one file to another, for example: \"conch copy from_folder to_folder\"")
-    print(colorama.Fore.GREEN+"conch shutdown"+colorama.Fore.WHITE+"- This will shutdown your pc immediately, use if something is broken or frozen.")
-    print(colorama.Fore.GREEN+"conch compare"+colorama.Fore.WHITE+"- This will compare the contents of two files, for example: \"conch compare file1 file2\"")
+    print(colorama.Fore.GREEN+"conch shutdown"+colorama.Fore.WHITE+"- This will shutdown your pc immediately, use if something is broken or frozen.")    
     print(colorama.Fore.GREEN+"conch error"+colorama.Fore.WHITE+"- This displays the most recent critical and error events from the System event log.")
     print(colorama.Fore.GREEN+"conch disk"+colorama.Fore.WHITE+"- This will open up the disk managment dialog.")
-
+    print(colorama.Fore.GREEN+"conch sysconfig"+colorama.Fore.WHITE+"- This will open up the system configuration gui.")
+    print(colorama.Fore.GREEN+"conch tic-tac"+colorama.Fore.WHITE+"- This will open up a 2 player tictactoe game, where you enter a number from 1,9 to place crosses or circles")
+    print(colorama.Fore.GREEN+"conch battery"+colorama.Fore.WHITE+"- This will create and generate a battery report as a .html file and open it.")
 greeting()
 Loop = True
 while Loop == True:
@@ -56,6 +163,8 @@ while Loop == True:
 
     if mainline == "conch":
         greeting()
+    if mainline == "conch tictac":
+        tictac()
 
     if mainline == "conch help":
         help()
@@ -65,6 +174,9 @@ while Loop == True:
         os.system("wmic cpu get NumberOfCores,NumberOfLogicalProcessors.")
     if mainline == "conch vers":
         version()
+    if mainline == "conch battery":
+        os.system("powercfg /batteryreport /output \"""C:\\Users\\User\\battery-report.html""\"")
+        os.startfile("C:\\Users\\User\\battery-report.html")
     if "conch read" in mainline:
         path = mainline.split("conch read")[1]
         path = path.strip()
@@ -74,6 +186,8 @@ while Loop == True:
     if "conch net" in mainline:
         os.system("netstat -an")
         os.system("ipconfig /all")
+    if "conch sysconfig" in mainline:
+        os.system("msconfig")
     if "conch url" in mainline:
         path = mainline.split("conch url")[1]
         path = path.strip()
@@ -84,7 +198,8 @@ while Loop == True:
         webbrowser.open(path)
     if "conch copy" in mainline:
         from2 = mainline.split()
-        from2 = from2[2]
+        from2 = from2[2]    
+
         to2 = from2[3]
         os.system("xcopy "+"\""+from2+"\"" + " \""+to2+"\""+" /e /i /h /y")
     if mainline == "conch task":
