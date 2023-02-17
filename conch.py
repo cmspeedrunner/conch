@@ -31,7 +31,7 @@ def tictac():
         count = 0
 
 
-        for i in range(25):
+        for i in range(10):
             printBoard(theBoard)
             print("It's your turn," + turn + ". Move to which place? (1-9)")
 
@@ -39,7 +39,7 @@ def tictac():
 
             if theBoard[move] == ' ':
                 theBoard[move] = turn
-                count += 1
+                count = count
             else:
                 print("That place is already filled.\nMove to which place?")
                 continue
@@ -151,8 +151,31 @@ def help():
     print(colorama.Fore.GREEN+"conch error"+colorama.Fore.WHITE+"- This displays the most recent critical and error events from the System event log.")
     print(colorama.Fore.GREEN+"conch disk"+colorama.Fore.WHITE+"- This will open up the disk managment dialog.")
     print(colorama.Fore.GREEN+"conch sysconfig"+colorama.Fore.WHITE+"- This will open up the system configuration gui.")
-    print(colorama.Fore.GREEN+"conch tic-tac"+colorama.Fore.WHITE+"- This will open up a 2 player tictactoe game, where you enter a number from 1,9 to place crosses or circles")
+    print(colorama.Fore.GREEN+"conch tictac"+colorama.Fore.WHITE+"- This will open up a 2 player tictactoe game, where you enter a number from 1,9 to place crosses or circles")
     print(colorama.Fore.GREEN+"conch battery"+colorama.Fore.WHITE+"- This will create and generate a battery report as a .html file and open it.")
+conch_commands = [
+    "conch",
+    "conch help",
+    "conch vers",
+    "conch cpu",
+    "conch break",
+    "conch read",
+    "conch url",
+    "conch wiki",
+    "conch search",
+    "conch task",
+    "conch ls",
+    "conch net",
+    "conch profile",
+    "conch copy",
+    "conch shutdown",
+    "conch error",
+    "conch disk",
+    "conch sysconfig",
+    "conch tictac",
+    "conch battery"
+]
+
 greeting()
 Loop = True
 while Loop == True:
@@ -224,6 +247,10 @@ while Loop == True:
              print(colorama.Fore.BLUE+"\nYour search was too broad, you need to narrow it down.\n"+colorama.Fore.WHITE)
         except(wikipedia.PageError):
              print(colorama.Fore.BLUE+"\nPage not found in database.\n"+colorama.Fore.WHITE)
+    if "conch" in mainline and mainline not in conch_commands:
+        listofmain = mainline.split()
+        print(colorama.Back.RED+"No conch command with name of: '"+ listofmain[1]+"'"+colorama.Back.RESET)
+        print(colorama.Back.RED+"Try 'conch help' to see a list of the avalible commands"+colorama.Back.RESET)
     if mainline == "conch break":
         goodbye()
         Loop = False
