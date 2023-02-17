@@ -39,8 +39,12 @@ def help():
     print(colorama.Fore.GREEN+"conch task"+colorama.Fore.WHITE+"- This is how you can open up a task manager window through conch")
     print(colorama.Fore.GREEN+"conch ls"+colorama.Fore.WHITE+"- This is how you can list the contents in the current directory")
     print(colorama.Fore.GREEN+"conch net"+colorama.Fore.WHITE+"- This will display all network details about the networks and ips on your computer.")
-    print(colorama.Fore.GREEN+"conch profile"+colorama.Fore.WHITE+"- This will display all wifi's you have ever been connected to.")
+    print(colorama.Fore.GREEN+"conch profile"+colorama.Fore.WHITE+"- This will display your computer profile")
     print(colorama.Fore.GREEN+"conch copy"+colorama.Fore.WHITE+"- This will copy everything from one file to another, for example: \"conch copy from_folder to_folder\"")
+    print(colorama.Fore.GREEN+"conch shutdown"+colorama.Fore.WHITE+"- This will shutdown your pc immediately, use if something is broken or frozen.")
+    print(colorama.Fore.GREEN+"conch compare"+colorama.Fore.WHITE+"- This will compare the contents of two files, for example: \"conch compare file1 file2\"")
+    print(colorama.Fore.GREEN+"conch error"+colorama.Fore.WHITE+"- This displays the most recent critical and error events from the System event log.")
+    print(colorama.Fore.GREEN+"conch disk"+colorama.Fore.WHITE+"- This will open up the disk managment dialog.")
 
 greeting()
 Loop = True
@@ -83,10 +87,19 @@ while Loop == True:
         from2 = from2[2]
         to2 = from2[3]
         os.system("xcopy "+"\""+from2+"\"" + " \""+to2+"\""+" /e /i /h /y")
-    if "conch task" in mainline:
+    if mainline == "conch task":
         os.system("tasklist")
-    if "conch profile" in mainline:
-        os.system("netsh wlan show profile key")
+    if mainline == "conch disk":
+        os.system("diskmgmt.msc")
+    if mainline == "conch error":
+        os.system("wevtutil qe System /rd:true /f:text /c:1 /q:\"*[System[(Level=1 or Level=2)]]\"")
+    if mainline == "conch shutdown":
+        os.system("shutdown /s /t 0")
+    if mainline == "conch profile":
+        os.system("systeminfo")
+        os.system("whoami /user")
+    if "conch compare" in mainline:
+        os.system("comp")
     if "conch wiki" in mainline:
         path = mainline.split("conch wiki")[1]
         path = path.strip()
