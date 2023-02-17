@@ -4,7 +4,9 @@ Conch is a shell/terminal helper for windows command prompt. Run Conch but putti
 
 
 ## Using Conch
-The first thing you will see when Conch is started is a greeting message, to see all the commands type in `conch help` and to see all the extra commands, Conch is just a plugin for your CMD line so every single command that you would normally run can also be ran actually faster through Conch. 
+The first thing you will see when Conch is started is a greeting message, to see all the commands type in `conch help` and to see all the extra commands, Conch is just a plugin for your CMD line so every single command that you would normally run can also be ran actually faster through Conch.
+![image](https://user-images.githubusercontent.com/109184310/219525936-4cddf097-7979-47a2-bfbb-a7fc8ae04dcf.png)
+
 
 ## Dependencies
 The python libraries you need is<br>
