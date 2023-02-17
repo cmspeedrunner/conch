@@ -248,8 +248,9 @@ while Loop == True:
         except(wikipedia.PageError):
              print(colorama.Fore.BLUE+"\nPage not found in database.\n"+colorama.Fore.WHITE)
     if "conch" in mainline and mainline not in conch_commands:
-        listofmain = mainline.split()
-        print(colorama.Back.RED+"No conch command with name of: '"+ listofmain[1]+"'"+colorama.Back.RESET)
+        listofmain = mainline.split("conch")[1]
+        listofmain = listofmain.strip()
+        print(colorama.Back.RED+"No conch command with name of: '"+listofmain+"'"+colorama.Back.RESET)
         print(colorama.Back.RED+"Try 'conch help' to see a list of the avalible commands"+colorama.Back.RESET)
     if mainline == "conch break":
         goodbye()
