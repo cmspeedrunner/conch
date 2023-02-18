@@ -10,8 +10,16 @@ The first thing you will see when Conch is started is a greeting message, to see
 
 ## Dependencies
 The python libraries you need is<br>
- os<br>
- colorama<br>
- sys<br>
- webbrowser<br>
- wikipedia<br>
+<ul>
+os
+colorama
+sys
+webbrowser
+wikipedia
+random
+keyboard
+keyboard
+calendar
+matplotlib.pyplot
+numpy
+</ul>
