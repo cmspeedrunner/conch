@@ -9,17 +9,4 @@ The first thing you will see when Conch is started is a greeting message, to see
 
 
 ## Dependencies
-The python libraries you need is<br>
-<ul>
-os
-colorama
-sys
-webbrowser
-wikipedia
-random
-keyboard
-keyboard
-calendar
-matplotlib.pyplot
-numpy
-</ul>
+The python libraries you need is in requirements.txt, you can do `pip install -r requirements.txt` in your wd which requirements.txt is in
