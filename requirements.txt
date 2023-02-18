@@ -1,5 +1,12 @@
-os
-colorama
-sys
-webbrowser
-wikipedia
+
+ os
+ colorama
+ sys
+ webbrowser
+ wikipedia
+ random
+ keyboard
+ keyboard
+ calendar
+ matplotlib.pyplot
+ numpy
