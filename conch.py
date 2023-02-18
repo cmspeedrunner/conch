@@ -4,7 +4,67 @@ import sys
 import webbrowser
 import wikipedia
 import random
+import keyboard
+import keyboard
+from colorama import init, Fore, Style
+import calendar
+import matplotlib.pyplot as plt
+import numpy as np
 
+def grmode():
+    print(colorama.Fore.BLUE+"Welcome to the Conch graph mode menu, enter a number to enter the graphing specifics.")
+    print("1. 2d Scatter Graph "+colorama.Fore.GREEN+"(2 Args)"+colorama.Fore.BLUE)
+    print("2. 3d Scatter Graph "+colorama.Fore.GREEN+"(3 Args)"+colorama.Fore.BLUE)
+    print("3. Barcode creator "+colorama.Fore.GREEN+"(1 Arg)"+colorama.Fore.BLUE)
+    
+    choice = int(input(colorama.Fore.WHITE))
+    if choice == 1:
+        x = (input(colorama.Fore.BLUE+"Enter X Array:"+colorama.Fore.WHITE))
+        y = (input(colorama.Fore.BLUE+"Enter Y Array:"+colorama.Fore.WHITE))
+        intx = [int(num) for num in x.split(",")]
+        inty = [int(num) for num in y.split(",")]
+        print(colorama.Fore.BLUE+"MAPPED:"+colorama.Fore.GREEN+intx, inty)
+        plt.scatter(intx,inty)
+        plt.show()
+        print(colorama.Fore.GREEN+"Sucessfully Passed Graph"+colorama.Fore.WHITE)
+    if choice == 2:
+        x = (input(colorama.Fore.BLUE+"Enter X Array:"+colorama.Fore.WHITE))
+        y = (input(colorama.Fore.BLUE+"Enter Y Array:"+colorama.Fore.WHITE))
+        z = (input(colorama.Fore.BLUE+"Enter Z Array:"+colorama.Fore.WHITE))
+        intx = [int(num) for num in x.split(",")]
+        inty = [int(num) for num in y.split(",")]
+        intz = [int(num) for num in z.split(",")]
+        fig = plt.figure(figsize = (10,10))
+        ax = plt.axes(projection='3d')
+        ax.grid()
+        try:
+            ax.scatter(intx, inty, intz, c = 'r', s = 50)
+            ax.set_title('3D Scatter Plot From Conch')
+            plt.show()
+            plt.scatter()
+            plt.show(intx,inty,intz)
+            print(colorama.Fore.GREEN+"Sucessfully Passed Graph"+colorama.Fore.WHITE)
+        except(ValueError):
+            print(colorama.Back.RED+"GR_MODE Error, Mismatched int, all arrays, x, y and z must have the same amount of values"+colorama.Back.RESET+"\n"+colorama.Back.RED+"X ARRAY LENGTH: "+str(len(intx))+" VALUES"+colorama.Back.RESET+"\n"+colorama.Back.RED+"Y ARRAY LENGTH: "+str(len(inty))+" VALUES"+colorama.Back.RESET+"\n"+colorama.Back.RED+"Z ARRAY LENGTH: "+str(len(intz))+" VALUES"+colorama.Back.RESET+"\n"+colorama.Back.RESET)
+    if choice == 3:
+        x = (input(colorama.Fore.BLUE+"Enter X Array:"+colorama.Fore.WHITE))
+        intx = [int(num) for num in x.split(",")]
+        code = np.array([intx])
+        pixel_per_bar = 4
+        dpi = 100
+        try:
+            fig = plt.figure(figsize=(len(code) * pixel_per_bar / dpi, 2), dpi=dpi)
+            ax = fig.add_axes([0, 0, 1, 1])  # span the whole figure
+            ax.set_axis_off()
+            ax.imshow(code.reshape(1, -1), cmap='binary', aspect='auto',
+                interpolation='nearest')
+            plt.show()
+            print(colorama.Fore.GREEN+"Sucessfully Passed Graph"+colorama.Fore.WHITE)
+        except(ValueError):
+            print(colorama.Back.RED+"GR_MODE Error, Faulty Array Struct, Bin array must not end with ','"+colorama.Back.RESET)
+    if choice != 1 or 2 or 3:
+        print(colorama.Back.RED+"Error finding menu item, leaving Graph Mode"+colorama.Back.RESET)
+        return()
 def tictac():
     theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
             '4': ' ' , '5': ' ' , '6': ' ' ,
@@ -112,6 +172,26 @@ def tictac():
 def greeting():
     print(colorama.Fore.BLUE+"Welcome to Conch, type in \"conch help\" for information."+colorama.Fore.WHITE)
 
+def te():
+    file_name = input(colorama.Fore.BLUE+"Enter file name: "+colorama.Fore.GREEN)
+    file_content = []
+    text2 = "\nShelly Editor V/0.25"
+    ctext = [getattr(Fore, f"{random.choice(list(Fore.__dict__.keys())[1:])}") + char + Fore.RESET for char in text2]    
+    print(''.join(ctext))
+    print(colorama.Fore.BLUE+"(press Ctrl+C to save and exit)\n"+colorama.Fore.WHITE)
+    print(colorama.Fore.GREEN+"Editing: "+file_name)
+    print(colorama.Fore.BLUE+"-----------------------------------------------------"+colorama.Fore.WHITE)
+    while True:
+        try:     
+            line = input()
+        except KeyboardInterrupt:
+            break
+    file_content = '\n'.join(file_content)
+    with open(file_name, 'w') as f:
+        f.write(file_content)
+                
+    print(colorama.Fore.GREEN+f"{file_name}"+colorama.Fore.BLUE+" saved."+colorama.Fore.WHITE)
+    
 def goodbye():
     text = "Thank you for using Conch!"
     colored_text = [getattr(colorama.Fore, f"{random.choice(list(colorama.Fore.__dict__.keys())[1:])}") + char + colorama.Fore.RESET for char in text]
@@ -127,11 +207,12 @@ def version():
        \ |  ,/
         \|_/   
 CONCH                 
-VERSION: ALPHA V/0.5
+VERSION: ALPHA V/0.65
 LICENSE: OPEN SOURCE
 DEV: CmSpeedrunner
 GITHUB: https://github.com/cmspeedrunner/conch              """+colorama.Fore.WHITE)
 
+            
 def help():
     print(colorama.Fore.BLUE+"CONCH COMMANDS:"+colorama.Fore.WHITE)
     print(colorama.Fore.BLUE+"------------------------------------------------------------"+colorama.Fore.WHITE)
@@ -153,27 +234,35 @@ def help():
     print(colorama.Fore.GREEN+"conch sysconfig"+colorama.Fore.WHITE+"- This will open up the system configuration gui.")
     print(colorama.Fore.GREEN+"conch tictac"+colorama.Fore.WHITE+"- This will open up a 2 player tictactoe game, where you enter a number from 1,9 to place crosses or circles")
     print(colorama.Fore.GREEN+"conch battery"+colorama.Fore.WHITE+"- This will create and generate a battery report as a .html file and open it.")
+    print(colorama.Fore.GREEN+"conch shelly"+colorama.Fore.WHITE+"- This is how you can open up the conch embedded text editor, you can code or just create text documents with shelly.")
+    print(colorama.Fore.GREEN+"conch cal"+colorama.Fore.WHITE+"- Displays a TUI calendar")
+    print(colorama.Fore.GREEN+"conch gr_mode"+colorama.Fore.WHITE+"- Will enter into graph mode, from here you can configure 2d, 3d and binary graphs.")
+
+
 conch_commands = [
     "conch",
-    "conch help",
-    "conch vers",
-    "conch cpu",
-    "conch break",
-    "conch read",
-    "conch url",
-    "conch wiki",
-    "conch search",
-    "conch task",
-    "conch ls",
-    "conch net",
-    "conch profile",
-    "conch copy",
-    "conch shutdown",
-    "conch error",
-    "conch disk",
-    "conch sysconfig",
-    "conch tictac",
-    "conch battery"
+    "help",
+    "vers",
+    "cpu",
+    "break",
+    "read",
+    "url",
+    "wiki",
+    "search",
+    "task",
+    "ls",
+    "net",
+    "profile",
+    "copy",
+    "shutdown",
+    "error",
+    "disk",
+    "sysconfig",
+    "tictac",
+    "battery",
+    "shelly",
+    "cal",
+    "gr_mode"
 ]
 
 greeting()
@@ -186,6 +275,8 @@ while Loop == True:
 
     if mainline == "conch":
         greeting()
+    if mainline == "conch shelly":
+        te()
     if mainline == "conch tictac":
         tictac()
 
@@ -219,9 +310,16 @@ while Loop == True:
         path = mainline.split("conch search")[1]
         path = path.strip()
         webbrowser.open(path)
+    if "conch cal" in mainline:
+        text_cal = calendar.TextCalendar(firstweekday = 0)
+  
+        year = 2023
+        month = 2
+
+        print(text_cal.formatmonth(year, month))
     if "conch copy" in mainline:
         from2 = mainline.split()
-        from2 = from2[2]    
+        from2 = from2[2]   
 
         to2 = from2[3]
         os.system("xcopy "+"\""+from2+"\"" + " \""+to2+"\""+" /e /i /h /y")
@@ -247,11 +345,16 @@ while Loop == True:
              print(colorama.Fore.BLUE+"\nYour search was too broad, you need to narrow it down.\n"+colorama.Fore.WHITE)
         except(wikipedia.PageError):
              print(colorama.Fore.BLUE+"\nPage not found in database.\n"+colorama.Fore.WHITE)
-    if "conch" in mainline and mainline not in conch_commands:
-        listofmain = mainline.split("conch")[1]
-        listofmain = listofmain.strip()
-        print(colorama.Back.RED+"No conch command with name of: '"+listofmain+"'"+colorama.Back.RESET)
-        print(colorama.Back.RED+"Try 'conch help' to see a list of the avalible commands"+colorama.Back.RESET)
+    if mainline == "conch gr_mode":
+        grmode()
+        
+
+    if mainline != "conch":
+        if "conch" in mainline and mainline.split()[1] not in conch_commands:
+            listofmain = mainline.split()[1]
+            listofmain = listofmain.strip()
+            print(colorama.Back.RED+"No conch command by name of: '"+listofmain+"'"+colorama.Back.RESET)
+            print(colorama.Back.RED+"Try 'conch help' to see a list of the avalible commands"+colorama.Back.RESET)
     if mainline == "conch break":
         goodbye()
         Loop = False
