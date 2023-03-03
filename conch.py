@@ -10,6 +10,7 @@ from colorama import init, Fore, Style
 import calendar
 import matplotlib.pyplot as plt
 import numpy as np
+import turtle
 
 def grmode():
     print(colorama.Fore.BLUE+"Welcome to the Conch graph mode menu, enter a number to enter the graphing specifics.")
@@ -237,6 +238,11 @@ def help():
     print(colorama.Fore.GREEN+"conch shelly"+colorama.Fore.WHITE+"- This is how you can open up the conch embedded text editor, you can code or just create text documents with shelly.")
     print(colorama.Fore.GREEN+"conch cal"+colorama.Fore.WHITE+"- Displays a TUI calendar")
     print(colorama.Fore.GREEN+"conch gr_mode"+colorama.Fore.WHITE+"- Will enter into graph mode, from here you can configure 2d, 3d and binary graphs.")
+    print(colorama.Fore.GREEN+"conch ip"+colorama.Fore.WHITE+"- Will lookup an ip from a url dns")
+    print(colorama.Fore.GREEN+"conch trace"+colorama.Fore.WHITE+"- Will trace the route that packets take from your computer to a specified network address or domain name")
+    print(colorama.Fore.GREEN+"conch driver"+colorama.Fore.WHITE+"- Will display all active drivers")
+    print(colorama.Fore.GREEN+"conch ac"+colorama.Fore.WHITE+"- Will display all active ports and connections open")
+    print(colorama.Fore.GREEN+"conch draw"+colorama.Fore.WHITE+"- Will open a drawing tui")
 
 
 conch_commands = [
@@ -262,7 +268,12 @@ conch_commands = [
     "battery",
     "shelly",
     "cal",
-    "gr_mode"
+    "gr_mode",
+    "ip",
+    "driver",
+    "trace",
+    "ac",
+    "draw",
 ]
 
 greeting()
@@ -288,6 +299,10 @@ while Loop == True:
         os.system("wmic cpu get NumberOfCores,NumberOfLogicalProcessors.")
     if mainline == "conch vers":
         version()
+    if mainline == "conch driver":
+        os.system("driverquery")
+    if mainline == "conch ac":
+        os.system("netstat")
     if mainline == "conch battery":
         os.system("powercfg /batteryreport /output \"""C:\\Users\\User\\battery-report.html""\"")
         os.startfile("C:\\Users\\User\\battery-report.html")
@@ -323,6 +338,16 @@ while Loop == True:
 
         to2 = from2[3]
         os.system("xcopy "+"\""+from2+"\"" + " \""+to2+"\""+" /e /i /h /y")
+    if "conch ip" in mainline:
+        from2 = mainline.split()
+        from2 = from2[2].strip()
+        os.system("nslookup "+from2)
+        print(colorama.Fore.BLUE+from2+colorama.Fore.WHITE)
+    if "conch trace" in mainline:
+        from2 = mainline.split()
+        from2 = from2[2].strip()
+        os.system("tracert "+from2)
+        print(colorama.Fore.BLUE+from2+colorama.Fore.WHITE)
     if mainline == "conch task":
         os.system("tasklist")
     if mainline == "conch disk":
@@ -334,8 +359,20 @@ while Loop == True:
     if mainline == "conch profile":
         os.system("systeminfo")
         os.system("whoami /user")
-    if "conch compare" in mainline:
-        os.system("comp")
+    if mainline == "conch draw":
+        def draw_shape(sides, length):
+            angle = 360 / sides
+            for i in range(sides):
+
+                turtle.forward(length)
+                turtle.right(angle)
+
+
+
+        sides = int(input("Enter the number of sides: "))
+        length = int(input("Enter the length of each side: "))
+        draw_shape(sides, length)
+        turtle.done()
     if "conch wiki" in mainline:
         path = mainline.split("conch wiki")[1]
         path = path.strip()
@@ -358,4 +395,6 @@ while Loop == True:
     if mainline == "conch break":
         goodbye()
         Loop = False
-        quit()
+        exit()
+        
+#### 400 LINES
