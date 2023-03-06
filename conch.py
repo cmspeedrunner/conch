@@ -243,7 +243,7 @@ def help():
     print(colorama.Fore.GREEN+"conch driver"+colorama.Fore.WHITE+"- Will display all active drivers")
     print(colorama.Fore.GREEN+"conch ac"+colorama.Fore.WHITE+"- Will display all active ports and connections open")
     print(colorama.Fore.GREEN+"conch draw"+colorama.Fore.WHITE+"- Will open a drawing tui")
-
+    print(colorama.Fore.GREEN+"conch castro"+colorama.Fore.WHITE+"- Will start the castro programming language if the file your running is in the working directory, just enter your .cst file after \"conch castro\"")
 
 conch_commands = [
     "conch",
@@ -274,6 +274,7 @@ conch_commands = [
     "trace",
     "ac",
     "draw",
+    "castro",
 ]
 
 greeting()
@@ -290,7 +291,10 @@ while Loop == True:
         te()
     if mainline == "conch tictac":
         tictac()
-
+    if mainline == "conch castro":
+        file = mainline.split("conch castro ")
+        file = file.strip()
+        os.system("python main.py "+file)
     if mainline == "conch help":
         help()
     if mainline == "conch ls":
